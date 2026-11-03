@@ -1,5 +1,4 @@
 # Mô tả dự án
-
 ## Tên dự án
 
 Lab 2 - Dự báo doanh số sản phẩm theo chuỗi thời gian.

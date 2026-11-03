@@ -155,8 +155,6 @@ Lab2_Sales_Regression/
 │   └── features/
 ├── reports/BAO_CAO_LAB2.md
 │   ├── data-description.html
-│   ├── eval_results.csv
-│   └── demo/demo_results.txt
 ├── docs/
 │   ├── PLAN.md
 │   ├── DATA_PIPELINE.md
@@ -220,8 +218,3 @@ Các thành phần cốt lõi được tự triển khai 100% bằng NumPy và P
    Invoke-RestMethod -Uri "http://127.0.0.1:5000/predict" -Method Post -ContentType "application/json" -Body '{"Purchase_Year": 2024, "Purchase_Month": 12, "Purchase_Day": 24, "Purchase_DayOfWeek": 1, "Purchase_IsWeekend": 0}'
    ```
 4. Hệ thống sẽ trả về số lượng đơn hàng dự báo bán được trong ngày Noel 24/12/2024.
-
----
-
-
-Thank you for visiting this project.
