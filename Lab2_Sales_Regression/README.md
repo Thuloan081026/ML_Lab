@@ -130,7 +130,11 @@ Lab2_Sales_Regression/
 │   ├── raw/
 │   │   └── ecommerce_dataset_updated.csv
 │   └── processed/
-│       └── ecommerce_features.csv
+│       ├── ecommerce_features.csv
+│       ├── train_daily.csv
+│       ├── val_daily.csv
+│       ├── test_daily.csv
+│       └── evaluation_results.csv
 ├── models/
 │   ├── algorithms/
 │   │   ├── decision_tree.py
@@ -140,6 +144,7 @@ Lab2_Sales_Regression/
 │   │   └── preprocessing.py
 │   └── save_model/
 │       ├── linear_regression.pkl
+│       ├── linear_regression_gd.pkl
 │       ├── decision_tree.pkl
 │       └── scaler.pkl
 ├── notebooks/
@@ -154,13 +159,15 @@ Lab2_Sales_Regression/
 │   ├── demo.py
 │   ├── data/
 │   └── features/
-├── reports/BAO_CAO_LAB2.md
+├── reports/
+│   ├── BAO_CAO_LAB2.md
 │   ├── data-description.html
-├── docs/
-│   ├── PLAN.md
-│   ├── DATA_PIPELINE.md
-│   ├── ALGORITHMS.md
-│   └── MODEL_CARD.md
+│   └── figures/
+└── docs/
+    ├── PLAN.md
+    ├── DATA_PIPELINE.md
+    ├── ALGORITHMS.md
+    └── MODEL_CARD.md
 ```
 
 | Thành phần | Vai trò |
@@ -171,7 +178,7 @@ Lab2_Sales_Regression/
 | `models/save_model/` | Các model và scaler đã huấn luyện. |
 | `app.py` | Web API Deployment bằng Flask để phục vụ dự đoán theo thời gian thực. |
 | `scripts/` | Kiểm tra dữ liệu, đánh giá đầu ra và chạy demo. |
-| `reports/` | Báo cáo, mô tả dữ liệu, kết quả đánh giá và demo. |
+| `reports/` | Báo cáo, mô tả dữ liệu, kết quả đánh giá và biểu đồ. |
 | `docs/` | Kế hoạch, pipeline, thuật toán và model card. |
 
 ---
@@ -195,24 +202,29 @@ Các thành phần cốt lõi được tự triển khai 100% bằng NumPy và P
 ## 5. Hướng dẫn Chạy Dự án (How to Run)
 
 ### A. Huấn luyện và Đánh giá tự động qua CLI
+
 1. Cài đặt các thư viện cơ bản:
-   `ash
+   ```bash
    pip install -r requirements.txt
-   `
+   ```
+
 2. Chạy toàn bộ pipeline huấn luyện (Data Prep -> Split -> Train -> Save Models):
-   `ash
+   ```bash
    python train.py
-   `
+   ```
+
 3. Đánh giá mô hình đã lưu trên tập Test độc lập:
-   `ash
+   ```bash
    python scripts/eval.py
-   `
+   ```
+
 4. Chạy kịch bản demo dự báo doanh số:
-   `ash
+   ```bash
    python scripts/demo.py
-   `
+   ```
 
 ### B. Chạy Khối lượng Nghiên cứu (Notebooks)
+
 1. Cài đặt các thư viện cơ bản: 
    ```bash
    pip install -r requirements.txt
@@ -222,6 +234,7 @@ Các thành phần cốt lõi được tự triển khai 100% bằng NumPy và P
 *(Lưu ý: Các thuật toán được sử dụng trực tiếp từ mã nguồn trong thư mục `models/`.)*
 
 ### C. Chạy Triển khai API (Model Deployment)
+
 1. Tại thư mục gốc của dự án, mở Terminal và gõ:
    ```bash
    python app.py
