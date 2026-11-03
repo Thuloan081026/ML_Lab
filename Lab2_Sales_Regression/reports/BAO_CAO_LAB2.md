@@ -475,6 +475,7 @@ Các notebook được chạy theo thứ tự từ 01 đến 05. Kết quả ki�
 
 ```text
 Lab2_Sales_Regression/
+├── train.py
 ├── app.py
 ├── requirements.txt
 ├── README.md

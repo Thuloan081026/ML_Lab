@@ -123,6 +123,7 @@ Kết quả thu được (MAE ~2.46 đơn/ngày) trở thành một công cụ m
 ```text
 Lab2_Sales_Regression/
 ├── README.md
+├── train.py
 ├── app.py
 ├── requirements.txt
 ├── data/
@@ -193,7 +194,25 @@ Các thành phần cốt lõi được tự triển khai 100% bằng NumPy và P
 
 ## 5. Hướng dẫn Chạy Dự án (How to Run)
 
-### A. Chạy Khối lượng Nghiên cứu (Notebooks)
+### A. Huấn luyện và Đánh giá tự động qua CLI
+1. Cài đặt các thư viện cơ bản:
+   `ash
+   pip install -r requirements.txt
+   `
+2. Chạy toàn bộ pipeline huấn luyện (Data Prep -> Split -> Train -> Save Models):
+   `ash
+   python train.py
+   `
+3. Đánh giá mô hình đã lưu trên tập Test độc lập:
+   `ash
+   python scripts/eval.py
+   `
+4. Chạy kịch bản demo dự báo doanh số:
+   `ash
+   python scripts/demo.py
+   `
+
+### B. Chạy Khối lượng Nghiên cứu (Notebooks)
 1. Cài đặt các thư viện cơ bản: 
    ```bash
    pip install -r requirements.txt
@@ -202,7 +221,7 @@ Các thành phần cốt lõi được tự triển khai 100% bằng NumPy và P
 3. Chạy lần lượt các notebook từ `01` đến `05`. 
 *(Lưu ý: Các thuật toán được sử dụng trực tiếp từ mã nguồn trong thư mục `models/`.)*
 
-### B. Chạy Triển khai API (Model Deployment)
+### C. Chạy Triển khai API (Model Deployment)
 1. Tại thư mục gốc của dự án, mở Terminal và gõ:
    ```bash
    python app.py

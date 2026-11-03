@@ -425,7 +425,8 @@ def compute_roc_auc_scratch(y_true: np.ndarray, y_scores: np.ndarray) -> tuple:
     tpr_arr = np.array(tpr_list)
     
     # AUC bằng quy tắc tích phân hình thang (Trapezoidal Rule)
-    auc_val = float(np.trapz(tpr_arr, fpr_arr))
+    trapezoid_func = getattr(np, 'trapezoid', getattr(np, 'trapz', None))
+    auc_val = float(trapezoid_func(tpr_arr, fpr_arr))
     return fpr_arr, tpr_arr, auc_val
 
 def compute_metrics_scratch(y_true: np.ndarray, y_pred: np.ndarray) -> dict:

@@ -16,3 +16,14 @@ def root_mean_squared_error(y_true, y_pred) -> float:
     y_pred_np = np.array(y_pred)
     mse = np.mean(np.square(y_true_np - y_pred_np))
     return np.sqrt(mse)
+
+def r2_score(y_true, y_pred) -> float:
+    """
+    Tính hệ số xác định R2 Score.
+    """
+    y_true_np = np.array(y_true)
+    y_pred_np = np.array(y_pred)
+    ss_res = np.sum(np.square(y_true_np - y_pred_np))
+    ss_tot = np.sum(np.square(y_true_np - np.mean(y_true_np)))
+    return float(1.0 - (ss_res / ss_tot)) if ss_tot > 0 else 0.0
+

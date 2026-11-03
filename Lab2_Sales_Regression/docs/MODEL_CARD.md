@@ -2,7 +2,7 @@
 
 ## Mục đích
 
-Dự báo số lượng giao dịch theo ngày từ các đặc trưng thời gian.
+Dự báo số lượng giao dịch theo ngày từ các đặc trưng thời gian (Daily Sales Volume).
 
 ## Đầu vào API
 
@@ -11,9 +11,8 @@ Dự báo số lượng giao dịch theo ngày từ các đặc trưng thời gi
 
 ## Model triển khai
 
-API hiện nạp `models/decision_tree.pkl` cùng
-`models/scaler.pkl`. Các model và scaler được tạo từ mã nguồn trong thư mục
-`models/`.
+API nạp `models/save_model/decision_tree.pkl`, `models/save_model/linear_regression.pkl` cùng
+`models/save_model/scaler.pkl`. Người dùng có thể chỉ định model qua tham số `"model": "decision_tree"` hoặc `"linear_regression"`.
 
 ## Giới hạn
 

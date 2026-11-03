@@ -92,7 +92,7 @@ Lập trình thủ công hoàn toàn bằng `NumPy` class `TfidfVectorizerScratc
    $$x_{\text{norm}} = \frac{x}{\|x\|_2} = \frac{x}{\sqrt{\sum_{j=1}^D x_j^2}}$$
 - **Tham số khống chế:** `min_df = 3`, `max_features = 2500`.
 - **Kích thước ma trận:**
-  - $X_{\text{train}}$: $(3996, 2500)$
+  - $X_{\text{train}}$: $(3985, 2500)$
   - $X_{\text{val}}$: $(854, 2500)$
   - $X_{\text{test}}$: $(856, 2500)$
 ## 1.8. BA THUẬT TOÁN HỌC MÁY TỰ LẬP TRÌNH BẰNG NUMPY

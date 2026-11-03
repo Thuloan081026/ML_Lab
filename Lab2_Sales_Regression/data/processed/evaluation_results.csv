@@ -1,0 +1,4 @@
+Model,Val_MAE,Val_RMSE,Val_R2,Test_MAE,Test_RMSE,Test_R2
+Linear Regression (Normal Eq),2.645,3.331,-0.0572,2.385,3.033,-0.0274
+Linear Regression (Gradient Descent),2.768,3.454,-0.1364,2.552,3.45,-0.3289
+Decision Tree Regressor (Depth=4),3.161,3.933,-0.474,2.885,3.559,-0.4144
