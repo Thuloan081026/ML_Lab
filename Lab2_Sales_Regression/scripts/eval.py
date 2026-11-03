@@ -28,7 +28,6 @@ from models.algorithms.linear_regression import LinearRegression
 from models.algorithms.preprocessing import StandardScaler
 from models.algorithms.metrics import mean_absolute_error, root_mean_squared_error, r2_score
 
-
 def main() -> None:
     test_csv = ROOT / "data" / "processed" / "test_daily.csv"
     save_dir = ROOT / "models" / "save_model"
@@ -86,7 +85,6 @@ def main() -> None:
     print(eval_table.to_string(index=False))
     print("=" * 75)
     print("[+] Đánh giá mô hình Lab 2 hoàn tất thành công!")
-
 
 if __name__ == "__main__":
     main()

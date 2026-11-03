@@ -1,5 +1,4 @@
 # Model Card
-
 ## Mục đích
 
 Dự báo số lượng giao dịch theo ngày từ các đặc trưng thời gian (Daily Sales Volume).

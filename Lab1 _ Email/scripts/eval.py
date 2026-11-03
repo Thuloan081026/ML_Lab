@@ -13,7 +13,6 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from predict import StatelessSpamClassifier
 
-
 def main():
     test_csv = PROJECT_ROOT / "data" / "processed" / "test.csv"
     model_json = PROJECT_ROOT / "models" / "email_classifier.json"
@@ -87,7 +86,6 @@ def main():
     print(f"Chỉ số ROC-AUC                : {auc_val:.4f}")
     print("=" * 75)
     print("[+] Hoàn tất đánh giá thành công!")
-
 
 if __name__ == "__main__":
     main()

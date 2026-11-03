@@ -1,5 +1,4 @@
 # Kế hoạch dự án: Phân loại Email Spam
-
 ## 1. Mục tiêu
 
 Xây dựng hệ thống phân loại email nhị phân:

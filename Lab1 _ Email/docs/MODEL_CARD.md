@@ -1,5 +1,4 @@
 # Model Card
-
 ## Mô hình
 
 Model triển khai chính là Multinomial Naive Bayes from-scratch với đặc trưng TF-IDF.

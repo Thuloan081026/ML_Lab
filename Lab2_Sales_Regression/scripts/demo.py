@@ -7,7 +7,6 @@ sys.path.insert(0, str(ROOT))
 
 from app import app, load_models
 
-
 def main() -> None:
     load_models()
     client = app.test_client()
@@ -57,7 +56,6 @@ def main() -> None:
 
     print("\n" + "=" * 70)
     print("[+] Hoàn tất demo thành công!")
-
 
 if __name__ == "__main__":
     main()

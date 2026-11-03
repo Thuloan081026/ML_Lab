@@ -1,9 +1,6 @@
 # BÁO CÁO LAB 2 - ML PROJECT: PREDICTING PRODUCT SALES
-
 ## DỰ ĐOÁN DOANH SỐ BÁN SẢN PHẨM
-
 ## 1. GIỚI THIỆU
-
 ### 1.1. Tên đề tài
 
 **Xây dựng pipeline học máy dự đoán doanh số bán sản phẩm từ dữ liệu giao dịch,
@@ -52,7 +49,6 @@ hình chính và cung cấp qua Flask API.
   - Nhãn: `Daily_Volume`, tức số giao dịch trong một ngày.
 
 ## 2. MÔ TẢ TẬP DỮ LIỆU
-
 ### 2.1. Nguồn dữ liệu
 
 Dữ liệu được lưu tại
@@ -115,7 +111,6 @@ Năm phương thức thanh toán gồm:
 Không có nhóm sản phẩm hoặc phương thức thanh toán nào bị thiếu dữ liệu.
 
 ## 3. QUY TRÌNH THỰC HIỆN
-
 ### 3.1. Tổng quan pipeline
 
 ```text
@@ -156,7 +151,6 @@ Không có nhóm sản phẩm hoặc phương thức thanh toán nào bị thi�
 | `05_online_learning.ipynb` | Mô phỏng cập nhật mô hình tuần tự bằng Gradient Descent |
 
 ## 4. KHÁM PHÁ VÀ TIỀN XỬ LÝ DỮ LIỆU
-
 ### 4.1. Kiểm tra chất lượng dữ liệu
 
 Kết quả kiểm tra trên dữ liệu gốc:
@@ -206,7 +200,6 @@ lại. Cách làm này giúp tránh rò rỉ thông tin từ dữ liệu đánh 
 huấn luyện.
 
 ## 5. CHIA DỮ LIỆU
-
 ### 5.1. Chia dữ liệu cho hồi quy cơ sở
 
 Trong notebook modeling baseline, dữ liệu được chia ngẫu nhiên theo tỷ lệ
@@ -237,7 +230,6 @@ Không xáo trộn dữ liệu thời gian là yêu cầu quan trọng vì mô h
 phép học từ quá khứ để dự báo tương lai.
 
 ## 6. CÁC THUẬT TOÁN TỰ CÀI ĐẶT
-
 ### 6.1. Hồi quy tuyến tính
 
 Hồi quy tuyến tính mô hình hóa quan hệ giữa đầu vào và nhãn:
@@ -299,7 +291,6 @@ Hai hàm được cài đặt tại
 [`metrics.py`](../models/algorithms/metrics.py).
 
 ## 7. KẾT QUẢ THỰC NGHIỆM
-
 ### 7.1. Hồi quy cơ sở: dự đoán giá sau giảm
 
 Mục tiêu của thí nghiệm là `Final_Price(Rs.)`. Kết quả trên tập kiểm tra:
@@ -359,7 +350,6 @@ nhưng mức cải thiện còn hạn chế do tập dữ liệu nhỏ và các 
 đơn giản.
 
 ## 8. PHÂN TÍCH KẾT QUẢ
-
 ### 8.1. So sánh mô hình
 
 - Linear Regression phù hợp với dữ liệu có xu hướng gần tuyến tính theo các
@@ -393,7 +383,6 @@ trung bình.
    lượng tốt nhất trong thí nghiệm thuộc về Linear Regression.
 
 ## 9. LƯU TRỮ MÔ HÌNH VÀ TRIỂN KHAI
-
 ### 9.1. Cấu trúc model
 
 ```text

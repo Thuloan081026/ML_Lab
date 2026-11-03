@@ -8,11 +8,9 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
-
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "raw" / "ecommerce_dataset_updated.csv"
 OUTPUT = ROOT / "data" / "processed" / "data_summary.csv"
-
 
 def main() -> None:
     df = pd.read_csv(SOURCE)
@@ -31,7 +29,6 @@ def main() -> None:
     summary.to_csv(OUTPUT, index=False)
     print(summary.to_string(index=False))
     print(f"Đã lưu tóm tắt dữ liệu: {OUTPUT}")
-
 
 if __name__ == "__main__":
     main()

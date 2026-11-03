@@ -1,7 +1,6 @@
 ﻿[*] Đang nạp mô hình JSON từ: D:\Năm 3\Máy học\ML_Lab\Lab1 _ Email\models\email_classifier.json...
 [+] Đã khôi phục thành công mô hình: MultinomialNaiveBayesScratch (Ngưỡng kích hoạt: 0.35)
 
-
 [Test Scenario]  : Kịch bản 1: Lottery Phishing (Lừa đảo trúng thưởng)
 Trích đoạn email : Subject: URGENT! You have won a $1,000,000 lottery prize! Click here immediately...
 -> Phán đoán     : 🚨 SPAM (THƯ RÁC)

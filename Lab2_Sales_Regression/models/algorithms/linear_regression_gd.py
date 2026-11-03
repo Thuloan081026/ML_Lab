@@ -26,14 +26,14 @@ class LinearRegressionGD:
         """
         X_mat = X.values if isinstance(X, pd.DataFrame) else np.array(X)
         y_vec = y.values if isinstance(y, pd.Series) else np.array(y)
-        
+
         num_samples, num_features = X_mat.shape
         self._initialize_parameters(num_features)
-        
+
         for epoch in range(self.epochs):
             # Tính đạo hàm và cập nhật
             self._update_weights(X_mat, y_vec, num_samples)
-            
+
         return self
 
     def partial_fit(self, X, y, epochs=1):
@@ -44,31 +44,31 @@ class LinearRegressionGD:
         """
         X_mat = X.values if isinstance(X, pd.DataFrame) else np.array(X)
         y_vec = y.values if isinstance(y, pd.Series) else np.array(y)
-        
+
         num_samples, num_features = X_mat.shape
         self._initialize_parameters(num_features)
-        
+
         for epoch in range(epochs):
             self._update_weights(X_mat, y_vec, num_samples)
-            
+
         return self
 
     def _update_weights(self, X, y, num_samples):
         """Tính toán đạo hàm hàm mất mát (MSE) và cập nhật Trọng số."""
         y_pred = X.dot(self.weights) + self.bias
         error = y_pred - y
-        
+
         # Đạo hàm của MSE theo Weights + L2 Regularization Penalty
         dw = (2 / num_samples) * X.T.dot(error) + 2 * self.alpha * self.weights
-        
+
         # Đạo hàm của MSE theo Bias
         db = (2 / num_samples) * np.sum(error)
-        
+
         # Gradient Clipping: Giới hạn độ giật của đạo hàm
         if self.clip_value is not None:
             dw = np.clip(dw, -self.clip_value, self.clip_value)
             db = np.clip(db, -self.clip_value, self.clip_value)
-        
+
         # Cập nhật W và B (hạ dốc)
         self.weights -= self.learning_rate * dw
         self.bias -= self.learning_rate * db
@@ -76,7 +76,7 @@ class LinearRegressionGD:
     def predict(self, X):
         if self.weights is None or self.bias is None:
             raise ValueError("Mô hình chưa được huấn luyện.")
-            
+
         X_mat = X.values if isinstance(X, pd.DataFrame) else np.array(X)
         return X_mat.dot(self.weights) + self.bias
 

@@ -6,6 +6,5 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from predict import main
 
-
 if __name__ == "__main__":
     main()

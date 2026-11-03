@@ -26,4 +26,3 @@ def r2_score(y_true, y_pred) -> float:
     ss_res = np.sum(np.square(y_true_np - y_pred_np))
     ss_tot = np.sum(np.square(y_true_np - np.mean(y_true_np)))
     return float(1.0 - (ss_res / ss_tot)) if ss_tot > 0 else 0.0
-

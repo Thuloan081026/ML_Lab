@@ -1,5 +1,4 @@
 # Data Pipeline
-
 ## Nguồn dữ liệu
 
 File `data/raw/ecommerce_dataset_updated.csv` gồm 3.660 giao dịch và các cột:

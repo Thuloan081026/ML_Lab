@@ -77,17 +77,17 @@ def predict():
 
         # Đưa vào DataFrame (1 dòng)
         df = pd.DataFrame([data])
-        
+
         # Các cột dạng số cần chuẩn hóa
         numeric_cols = ['Purchase_Year', 'Purchase_Month', 'Purchase_Day', 'Purchase_DayOfWeek']
-        
+
         # Transform dữ liệu (Không fit lại)
         df_scaled = df.copy()
         df_scaled[numeric_cols] = scaler.transform(df[numeric_cols])
-        
+
         # Dự đoán
         prediction = active_model.predict(df_scaled)
-        
+
         # Trả về kết quả
         return jsonify({
             "status": "success",
@@ -95,7 +95,7 @@ def predict():
             "input_data": data,
             "predicted_daily_volume": float(prediction[0])
         })
-        
+
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 

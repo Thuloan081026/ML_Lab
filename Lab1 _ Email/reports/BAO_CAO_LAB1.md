@@ -1,5 +1,5 @@
 # BÁO CÁO DỰ ÁN MÔN HỌC MÁY HỌC (MACHINE LEARNING)
-**Tập dữ liệu:** `data/raw/emails.csv` (Kaggle Dataset)  
+**Tập dữ liệu:** `data/raw/emails.csv` (Kaggle Dataset)
 ## 1.1. GIỚI THIỆU (INTRODUCTION)
 ### 1.1.1. Định nghĩa bài toán (Problem Definition)
 Phân loại thư rác (Email Spam Classification) là một trong những bài toán kinh điển và quan trọng nhất trong học máy ứng dụng vào an ninh mạng. Hàng ngày, người dùng phải đối mặt với hàng tỷ email chứa mã độc, lừa đảo tài chính (phishing), hoặc quảng cáo làm phiền.

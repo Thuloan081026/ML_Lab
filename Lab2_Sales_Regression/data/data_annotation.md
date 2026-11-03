@@ -1,5 +1,4 @@
 # Chú thích dữ liệu Lab 2
-
 ## Tập dữ liệu gốc
 
 Tệp dữ liệu: `data/raw/ecommerce_dataset_updated.csv`
