@@ -1,0 +1,5 @@
+numpy>=1.24.0       # Toán học ma trận, Gradient Descent, Softmax, L2-norm
+pandas>=2.0.0       # Đọc CSV, thao tác DataFrame
+matplotlib>=3.7.0   # Vẽ biểu đồ plots (ROC, Confusion Matrix, Bigrams,...)
+seaborn>=0.12.0     # Heatmap Confusion Matrix (style đẹp hơn matplotlib thuần)
+flask>=3.0.0        # Web app giao diện dự đoán email (app.py)

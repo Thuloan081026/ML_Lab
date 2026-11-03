@@ -1,0 +1,27 @@
+﻿[*] Đang nạp mô hình JSON từ: D:\Năm 3\Máy học\ML_Lab\Lab1 _ Email\models\email_classifier.json...
+[+] Đã khôi phục thành công mô hình: MultinomialNaiveBayesScratch (Ngưỡng kích hoạt: 0.35)
+
+
+[Test Scenario]  : Kịch bản 1: Lottery Phishing (Lừa đảo trúng thưởng)
+Trích đoạn email : Subject: URGENT! You have won a $1,000,000 lottery prize! Click here immediately...
+-> Phán đoán     : 🚨 SPAM (THƯ RÁC)
+-> Xác suất Spam : 92.21% (Hợp lệ: 7.79%)
+-> Trigger Words : click, claim, cash, free, money_amount
+
+[Test Scenario]  : Kịch bản 2: Commercial Spam (Quảng cáo thuốc & giảm giá)
+Trích đoạn email : Subject: Exclusive special discount on luxury watches and cheap meds without pre...
+-> Phán đoán     : 🚨 SPAM (THƯ RÁC)
+-> Xác suất Spam : 96.70% (Hợp lệ: 3.30%)
+-> Trigger Words : worldwide, cheap, online, shipping, special
+
+[Test Scenario]  : Kịch bản 3: Internal Meeting (Họp nội bộ doanh nghiệp)
+Trích đoạn email : Subject: Team meeting tomorrow at 10 AM. Please review the attached quarterly re...
+-> Phán đoán     : ✅ HAM (THƯ HỢP LỆ)
+-> Xác suất Spam : 0.30% (Hợp lệ: 99.70%)
+-> Trigger Words : meeting, attending, attached, tomorrow, project
+
+[Test Scenario]  : Kịch bản 4: Work Collaboration (Trao đổi chuyên môn / Học tập)
+Trích đoạn email : Subject: Hi John, please send updated python code for machine learning lab assig...
+-> Phán đoán     : ✅ HAM (THƯ HỢP LỆ)
+-> Xác suất Spam : 6.16% (Hợp lệ: 93.84%)
+-> Trigger Words : john, let, updated, please, know
