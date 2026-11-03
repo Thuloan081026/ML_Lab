@@ -1,29 +1,32 @@
-# BÁO CÁO LAB 2 - DỰ BÁO DOANH SỐ THƯƠNG MẠI ĐIỆN TỬ
+# BÁO CÁO LAB 2 - ML PROJECT: PREDICTING PRODUCT SALES
+
+## DỰ ĐOÁN DOANH SỐ BÁN SẢN PHẨM
 
 ## 1. GIỚI THIỆU
 
 ### 1.1. Tên đề tài
 
-**Xây dựng pipeline học máy dự đoán giá bán và dự báo số lượng giao dịch theo
-ngày trên dữ liệu thương mại điện tử.**
+**Xây dựng pipeline học máy dự đoán doanh số bán sản phẩm từ dữ liệu giao dịch,
+giá bán, mức giảm giá và thời điểm mua hàng.**
 
 ### 1.2. Bối cảnh bài toán
 
-Trong hệ thống thương mại điện tử, dữ liệu giao dịch có thể được sử dụng cho
-hai nhu cầu phân tích chính:
+Trong bài toán dự đoán doanh số bán sản phẩm, dữ liệu giao dịch được sử dụng
+cho hai nhu cầu phân tích chính:
 
 1. Ước lượng giá bán cuối cùng của một sản phẩm dựa trên giá niêm yết và mức
    giảm giá.
-2. Dự báo số lượng giao dịch theo ngày để hỗ trợ lập kế hoạch vận hành,
-   nhân sự, kho hàng và chăm sóc khách hàng.
+2. Dự đoán sản lượng bán theo ngày để hỗ trợ lập kế hoạch sản phẩm, kho hàng,
+   nhân sự và hoạt động kinh doanh.
 
-Lab 2 triển khai cả hai thí nghiệm hồi quy. Thí nghiệm dự đoán `Final_Price(Rs.)`
-được dùng làm bài toán hồi quy cơ sở. Thí nghiệm dự báo `Daily_Volume` được
-đóng gói thành mô hình chính và cung cấp qua Flask API.
+Lab 2 triển khai cả hai thí nghiệm hồi quy. Thí nghiệm dự đoán
+`Final_Price(Rs.)` kiểm tra khả năng ước lượng giá bán sản phẩm. Thí nghiệm
+dự đoán `Daily_Volume`, tức sản lượng bán theo ngày, được đóng gói thành mô
+hình chính và cung cấp qua Flask API.
 
 ### 1.3. Mục tiêu của bài thực hành
 
-1. Đọc, kiểm tra và mô tả bộ dữ liệu giao dịch thương mại điện tử.
+1. Đọc, kiểm tra và mô tả bộ dữ liệu giao dịch bán sản phẩm.
 2. Phân tích dữ liệu bằng thống kê mô tả và trực quan hóa.
 3. Xử lý ngày tháng và tạo các đặc trưng thời gian.
 4. Mã hóa biến phân loại bằng One-Hot Encoding.
