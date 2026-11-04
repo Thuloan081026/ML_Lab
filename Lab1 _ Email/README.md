@@ -1,6 +1,4 @@
 # Lab 1 - Phân loại Email Spam
-
-Dự án bài tập lớn môn Học máy phân loại email nhị phân bằng NumPy thuần (Zero Scikit-Learn):
 - `0`: Ham - email hợp lệ.
 - `1`: Spam - email rác hoặc có dấu hiệu lừa đảo.
 
