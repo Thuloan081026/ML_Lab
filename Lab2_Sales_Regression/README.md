@@ -4,8 +4,6 @@
 
 ### From-scratch Time-Series Forecasting Pipeline with Linear Regression, Decision Tree, and Online Learning (Fine-Tuning)
 
-<p><img src="https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python" alt="Python 3.10" /> <img src="https://img.shields.io/badge/Jupyter-Notebook-orange?style=for-the-badge&logo=jupyter" alt="Jupyter Notebook" /> <img src="https://img.shields.io/badge/Task-Time--Series%20Forecasting-brightgreen?style=for-the-badge" alt="Time-Series Forecasting" /> <img src="https://img.shields.io/badge/Core-From%20Scratch-purple?style=for-the-badge" alt="From Scratch" /> <img src="https://img.shields.io/badge/Models-Linear%20Regression%20%2B%20Decision%20Tree-red?style=for-the-badge" alt="Models" />
-</p>
 <table>
 <tr>
 <td><b>Notebook chính</b></td>
@@ -18,10 +16,6 @@
 <tr>
 <td><b>Bài toán</b></td>
 <td>Dự báo Chuỗi thời gian (Time-Series Forecasting) cho Số lượng đơn hàng (Daily Sales Volume)</td>
-</tr>
-<tr>
-<td><b>Nguyên tắc chính</b></td>
-<td>100% thuật toán tự lập trình bằng Toán học (From Scratch), không sử dụng thư viện scikit-learn.</td>
 </tr>
 </table>
 <p>
