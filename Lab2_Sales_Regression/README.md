@@ -198,17 +198,17 @@ Lab2_Sales_Regression/
 
 ## 4. From-scratch compliance (Điểm nhấn Kỹ thuật)
 
-Các thành phần cốt lõi được tự triển khai 100% bằng NumPy và Pandas:
+Các thành phần cốt lõi được triển khai 100% bằng NumPy và Pandas:
 
 | Thành phần | Class / logic chính | Ghi chú |
 |---|---|---|
-| Chống Rò rỉ Dữ liệu | `StandardScaler` | Tự viết Class chuẩn hóa dữ liệu. Chỉ học Mean/Std trên Train set, sau đó Transform lên Test set. |
-| Time-Series Split | `time_series_train_val_test_split` | Tự code hàm chia dữ liệu thành 3 tập (Train/Val/Test) theo đúng trật tự thời gian thay vì xáo trộn ngẫu nhiên. |
-| Linear Regression | `LinearRegression` | Tự giải thuật toán bằng công thức Ma trận giả nghịch đảo (Normal Equation). |
-| Decision Tree | `DecisionTreeRegressor` | Tự code thuật toán rẽ nhánh đệ quy dựa trên tiêu chí **Giảm phương sai (Variance Reduction)**. |
+| Chống Rò rỉ Dữ liệu | `StandardScaler` | Class chuẩn hóa dữ liệu. Chỉ học Mean/Std trên Train set, sau đó Transform lên Test set. |
+| Time-Series Split | `time_series_train_val_test_split` | Hàm chia dữ liệu thành 3 tập (Train/Val/Test) theo đúng trật tự thời gian thay vì xáo trộn ngẫu nhiên. |
+| Linear Regression | `LinearRegression` | Giải thuật toán bằng công thức Ma trận giả nghịch đảo (Normal Equation). |
+| Decision Tree | `DecisionTreeRegressor` | Thuật toán rẽ nhánh đệ quy dựa trên tiêu chí **Giảm phương sai (Variance Reduction)**. |
 | Online Learning | `LinearRegressionGD` | Thuật toán Hạ dốc đạo hàm có tính năng `partial_fit` để học liên tục. |
 | Chống Overreacting | `alpha`, `clip_value` | Áp dụng L2 Regularization và Gradient Clipping để giới hạn Trọng số, chống nhiễu dữ liệu. |
-| Metrics | `mean_absolute_error`, `root_mean_squared_error` | Tự code các hàm đánh giá sai số. |
+| Metrics | `mean_absolute_error`, `root_mean_squared_error` | Các hàm đánh giá sai số. |
 
 ---
 
