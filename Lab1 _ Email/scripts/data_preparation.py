@@ -1,7 +1,3 @@
-"""
-Kịch bản chuẩn bị dữ liệu: Đọc CSV thô, loại trùng, chia Stratified 70/15/15 và lưu kết quả.
-"""
-
 import sys
 from pathlib import Path
 import json

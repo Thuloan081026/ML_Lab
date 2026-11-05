@@ -29,6 +29,14 @@ from models.metrics import compute_metrics, compute_roc_auc
 from models.save_models import save_json_artifact
 from scripts.data_preparation import prepare_and_save_data
 
+# [THÊM MỚI] Hàm chuyển DataFrame thành bảng Markdown (không cần cài thêm thư viện tabulate)
+def df_to_markdown(df, digits=4):
+    header = '| ' + ' | '.join(str(c) for c in df.columns) + ' |'
+    divider = '|' + '|'.join(['---'] * len(df.columns)) + '|'
+    rows = ['| ' + ' | '.join(f"{v:.{digits}f}" if isinstance(v, (float, np.floating)) else str(v)
+                              for v in row) + ' |' for row in df.itertuples(index=False)]
+    return '\n'.join([header, divider] + rows)
+
 def main():
     print("=" * 75)
     print("LAB 1: PIPELINE PHÂN LOẠI EMAIL SPAM (100% FROM SCRATCH BẰNG NUMPY)")
@@ -107,6 +115,23 @@ def main():
     }
     save_json_artifact(json_artifact)
     print(f"[+] Đã xuất mô hình JSON thành công vào: models/email_classifier.json")
+
+    # 6. [THÊM MỚI] Xuất kết quả đánh giá ra file Markdown (theo yêu cầu của giảng viên)
+    report_path = PROJECT_ROOT / 'reports' / 'evaluation_results.md'
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    md_lines = [
+        "# Kết quả Lab 1: Phân loại Email Spam (100% From Scratch)", "",
+        "## 1. Kết quả trên tập Validation (Threshold = 0.50)", "",
+        df_to_markdown(pd.DataFrame(val_res)), "",
+        "## 2. Hiệu chuẩn ngưỡng quyết định (Multinomial NB)", "",
+        f"- Ngưỡng tối ưu (BEST_THRESHOLD): **{best_th:.2f}**",
+        f"- Val F1-Score: **{best_f1 * 100:.2f}%**", "",
+        f"## 3. Kết quả chính thức trên tập Test độc lập (Threshold = {best_th:.2f})", "",
+        df_to_markdown(df_test_res), "",
+    ]
+    report_path.write_text("\n".join(md_lines), encoding='utf-8')
+    print(f"[+] Đã xuất báo cáo kết quả Markdown vào: {report_path}")
+
     print("=" * 75)
     print("HOÀN TẤT HUẤN LUYỆN LAB 1 THÀNH CÔNG (<200 DÒNG)!")
     print("=" * 75)
