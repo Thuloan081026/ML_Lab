@@ -116,7 +116,7 @@ def main():
     save_json_artifact(json_artifact)
     print(f"[+] Đã xuất mô hình JSON thành công vào: models/email_classifier.json")
 
-    # 6. [THÊM MỚI] Xuất kết quả đánh giá ra file Markdown (theo yêu cầu của giảng viên)
+    # 6.Xuất kết quả đánh giá ra file Markdown 
     report_path = PROJECT_ROOT / 'reports' / 'evaluation_results.md'
     report_path.parent.mkdir(parents=True, exist_ok=True)
     md_lines = [
