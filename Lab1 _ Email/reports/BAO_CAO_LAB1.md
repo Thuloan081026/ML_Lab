@@ -1,9 +1,9 @@
-# BÁO CÁO DỰ ÁN MÔN HỌC MÁY HỌC (MACHINE LEARNING)
+# BÁO CÁO THÍ NGHIỆM MÔN MÁY HỌC (MACHINE LEARNING)
 **Tập dữ liệu:** `data/raw/emails.csv` (Kaggle Dataset)
 ## 1.1. GIỚI THIỆU (INTRODUCTION)
 ### 1.1.1. Định nghĩa bài toán (Problem Definition)
 Phân loại thư rác (Email Spam Classification) là một trong những bài toán kinh điển và quan trọng nhất trong học máy ứng dụng vào an ninh mạng. Hàng ngày, người dùng phải đối mặt với hàng tỷ email chứa mã độc, lừa đảo tài chính (phishing), hoặc quảng cáo làm phiền.
-Mục tiêu cốt lõi của bài thực hành: **Xây dựng hệ thống học máy tự động đọc nội dung văn bản email và phân loại nhị phân chính xác thành một trong hai lớp: "Spam" (thư rác/nguy hiểm) hoặc "Ham" (thư hợp lệ/an toàn).**
+Mục tiêu cốt lõi của bài thực hành: **Xây dựng mô hình học máy tự động phân loại nội dung văn bản email thành một trong hai lớp: "Spam" (thư rác/nguy hiểm) hoặc "Ham" (thư hợp lệ/an toàn).**
 ### 1.1.2. Bối cảnh ứng dụng và nghiên cứu (Business or Research Context)
 Bộ lọc thư rác mạnh mẽ là tính năng nền tảng của mọi nhà cung cấp dịch vụ email (Gmail, Outlook). Hệ thống hiệu quả giúp:
 - Bảo vệ người dùng khỏi các nguy cơ lừa đảo và phần mềm gián điệp.
