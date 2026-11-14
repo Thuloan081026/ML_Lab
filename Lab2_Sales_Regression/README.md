@@ -25,7 +25,7 @@ kỹ thuật Online Learning đến inference trực tiếp qua Web API.
 </p>
 </div>
 
-## 1. Mục tiêu dự án
+## 1. Mục tiêu nghiên cứu
 
 Ban đầu, dữ liệu (`ecommerce_dataset_updated.csv`) cung cấp lịch sử giao dịch. Thông thường, sinh viên sẽ lấy giá trị `Price` và `Discount` để đoán `Final_Price`. Tuy nhiên, điều này gây ra hiện tượng rò rỉ dữ liệu (Data Leakage) vì công thức tính là cố định.
 
