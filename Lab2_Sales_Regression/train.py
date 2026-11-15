@@ -27,7 +27,12 @@ from models.algorithms.linear_regression import LinearRegression
 from models.algorithms.linear_regression_gd import LinearRegressionGD
 from models.algorithms.decision_tree import DecisionTreeRegressor
 from models.algorithms.preprocessing import time_series_train_val_test_split, StandardScaler
-from models.algorithms.metrics import mean_absolute_error, root_mean_squared_error, r2_score
+from models.algorithms.metrics import (
+    mean_absolute_error,
+    root_mean_squared_error,
+    r2_score,
+    mean_absolute_percentage_error,
+)
 from scripts.features.build_features import extract_date_features
 
 def prepare_daily_volume(df: pd.DataFrame) -> pd.DataFrame:
@@ -98,9 +103,11 @@ def main():
             "Model": name,
             "Val_MAE": round(mean_absolute_error(y_val, val_pred), 3),
             "Val_RMSE": round(root_mean_squared_error(y_val, val_pred), 3),
+            "Val_MAPE (%)": round(mean_absolute_percentage_error(y_val, val_pred), 2),
             "Val_R2": round(r2_score(y_val, val_pred), 4),
             "Test_MAE": round(mean_absolute_error(y_test, test_pred), 3),
             "Test_RMSE": round(root_mean_squared_error(y_test, test_pred), 3),
+            "Test_MAPE (%)": round(mean_absolute_percentage_error(y_test, test_pred), 2),
             "Test_R2": round(r2_score(y_test, test_pred), 4),
         })
 
@@ -112,9 +119,9 @@ def main():
     rep_dir.mkdir(parents=True, exist_ok=True)
     with open(rep_dir / "evaluation_results.md", "w", encoding="utf-8") as f:
         f.write("# BÁO CÁO ĐÁNH GIÁ MÔ HÌNH — LAB 2 (SALES FORECASTING)\n\n")
-        f.write("| Mô hình | Test MAE (đơn/ngày) | Test RMSE | Test R2 Score |\n|---|---|---|---|\n")
+        f.write("| Mô hình | Test MAE (đơn/ngày) | Test RMSE | Test MAPE (%) | Test R2 Score |\n|---|---|---|---|---|\n")
         for r in results:
-            f.write(f"| **{r['Model']}** | {r['Test_MAE']:.4f} | {r['Test_RMSE']:.4f} | {r['Test_R2']:.4f} |\n")
+            f.write(f"| **{r['Model']}** | {r['Test_MAE']:.4f} | {r['Test_RMSE']:.4f} | {r['Test_MAPE (%)']:.2f}% | {r['Test_R2']:.4f} |\n")
     print(f"[+] Đã lưu báo cáo Markdown tại: {rep_dir / 'evaluation_results.md'}")
 
     # 4. Lưu trữ mô hình triển khai

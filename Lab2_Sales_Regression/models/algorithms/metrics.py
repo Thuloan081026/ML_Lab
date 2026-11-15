@@ -26,3 +26,14 @@ def r2_score(y_true, y_pred) -> float:
     ss_res = np.sum(np.square(y_true_np - y_pred_np))
     ss_tot = np.sum(np.square(y_true_np - np.mean(y_true_np)))
     return float(1.0 - (ss_res / ss_tot)) if ss_tot > 0 else 0.0
+
+def mean_absolute_percentage_error(y_true, y_pred, eps: float = 1e-8) -> float:
+    """
+    Tính Mean Absolute Percentage Error (MAPE) theo đơn vị %.
+    Công thức: MAPE = (100% / n) * sum(|y_true - y_pred| / max(|y_true|, eps))
+    """
+    y_true_np = np.array(y_true, dtype=np.float64)
+    y_pred_np = np.array(y_pred, dtype=np.float64)
+    denom = np.maximum(np.abs(y_true_np), eps)
+    return float(np.mean(np.abs((y_true_np - y_pred_np) / denom)) * 100.0)
+

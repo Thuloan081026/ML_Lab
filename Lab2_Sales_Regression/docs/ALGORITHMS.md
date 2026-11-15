@@ -56,20 +56,32 @@ Phiên bản trong dự án hỗ trợ:
 Mã nguồn nằm tại
 [`linear_regression_gd.py`](../models/algorithms/linear_regression_gd.py).
 
-### 4. Hàm đánh giá
+### 4. Hàm đánh giá (Evaluation Metrics)
 
-Sai số tuyệt đối trung bình:
+Các hàm đánh giá đều được lập trình 100% From-Scratch thuần NumPy tại [`metrics.py`](../models/algorithms/metrics.py):
 
+#### 4.1. Sai số tuyệt đối trung bình (MAE)
 $$
 MAE = \frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y}_i|
 $$
+MAE phản ánh độ lệch trung bình giữa số lượng đơn thực tế và dự báo theo cùng đơn vị đo (đơn hàng/ngày).
 
-Căn bậc hai của sai số bình phương trung bình:
-
+#### 4.2. Căn bậc hai sai số bình phương trung bình (RMSE)
 $$
 RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}
 $$
+RMSE phạt nặng hơn đối với các sai số lớn do phép bình phương, giúp phát hiện các ngày dự báo lệch đột biến.
 
-MAE dễ diễn giải theo đơn vị của nhãn. RMSE phạt mạnh hơn các sai số lớn.
-Hai hàm được cài đặt tại
-[`metrics.py`](../models/algorithms/metrics.py).
+#### 4.3. Phần trăm sai số tuyệt đối trung bình (MAPE)
+$$
+MAPE = \frac{100\%}{n}\sum_{i=1}^{n}\left|\frac{y_i-\hat{y}_i}{\max(|y_i|, \epsilon)}\right|
+$$
+- **Ý nghĩa:** Biểu diễn mức độ sai lệch theo tỷ lệ phần trăm so với giá trị thực tế, giúp các bên kinh doanh dễ hình dung sai số tương đối bất kể quy mô doanh số lớn hay nhỏ.
+- **Xử lý số học:** Áp dụng hệ số $\epsilon = 10^{-8}$ kẹp cận dưới mẫu số để triệt tiêu lỗi chia cho 0 khi ngày đó có doanh số bằng 0.
+
+#### 4.4. Hệ số xác định ($R^2$ Score)
+$$
+R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}
+$$
+Đo lường tỷ lệ phương sai của biến mục tiêu mà các đặc trưng giải thích được so với mô hình dự đoán bằng giá trị trung bình $\bar{y}$.
+

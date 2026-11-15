@@ -98,19 +98,24 @@ graph TD
 ## 5. ĐÁNH GIÁ MÔ HÌNH VÀ CÁC CÂU HỎI VẤN ĐÁP THƯỜNG GẶP (VIVA FAQS)
 
 ### Bảng kết quả thực nghiệm trên tập Test
-| Mô hình | Test MAE (đơn) | Test RMSE (đơn) | Test R2-Score | Tốc độ suy luận |
-| :--- | :---: | :---: | :---: | :---: |
-| **Linear Regression (Normal Eq) 🏆** | **1.21** | **1.49** | **0.18** | **< 1 ms** |
-| Linear Regression (GD) | 1.25 | 1.53 | 0.14 | < 1 ms |
-| Decision Tree Regressor | 1.48 | 1.82 | -0.21 | < 2 ms |
+| Mô hình | Test MAE (đơn) | Test RMSE (đơn) | Test MAPE (%) | Test R2-Score | Tốc độ suy luận |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Linear Regression (Normal Eq) 🏆** | **2.385** | **3.033** | **22.82%** | **-0.0274** | **< 1 ms** |
+| Linear Regression (GD) | 2.552 | 3.450 | 24.21% | -0.3289 | < 1 ms |
+| Decision Tree Regressor | 2.885 | 3.559 | 28.43% | -0.4144 | < 2 ms |
 
-*Nhận xét:* Với dữ liệu thực tế ít mẫu (49 ngày test) và có yếu tố ngẫu nhiên cao, mô hình tuyến tính đơn giản giữ được tính bền vững tốt nhất, không bị hiện tượng học vẹt (overfitting) như Cây quyết định đơn lẻ.
+*Nhận xét:* Với dữ liệu chuỗi thời gian thực tế (48 ngày test), mô hình tuyến tính đơn giản giữ được tính ổn định cao nhất, đạt MAPE tốt nhất (22.82% so với 28.43% của Decision Tree), hạn chế hiện tượng overfitting thường thấy ở cây quyết định.
 
 ### Bộ câu hỏi vấn đáp bảo vệ đồ án:
 - **Câu hỏi 1: Tại sao không dùng K-Fold Cross Validation trong bài toán này?**
   *Trả lời:* K-Fold chia tập dữ liệu ngẫu nhiên thành $K$ phần rồi luân phiên làm tập kiểm tra. Trong chuỗi thời gian, K-Fold sẽ lấy dữ liệu tương lai để huấn luyện và kiểm tra dữ liệu quá khứ, gây ra vi phạm nguyên lý thời gian thực tế. Thay vào đó, trong chuỗi thời gian phải dùng *Time-Series Split* (hoặc *Rolling-Window Validation*).
 - **Câu hỏi 2: Khi nào nên dùng Normal Equation và khi nào dùng Gradient Descent?**
   *Trả lời:* Normal Equation tính nghiệm giải tích chính xác ngay lập tức với độ phức tạp $O(D^3)$ ($D$ là số đặc trưng). Nó hoạt động hoàn hảo khi số chiều $D < 10.000$. Nhưng khi $D$ lên tới hàng triệu chiều hoặc khi dữ liệu dạng dòng chảy liên tục (Streaming Data), tính nghịch đảo ma trận là bất khả thi, lúc này bắt buộc phải dùng Gradient Descent hoặc Online Learning.
-- **Câu hỏi 3: Giá trị MAE = 1.21 đơn/ngày có ý nghĩa gì đối với chủ doanh nghiệp?**
-  *Trả lời:* Điều đó có nghĩa là trung bình mỗi ngày, dự báo của hệ thống chỉ lệch so với thực tế khoảng 1 đơn hàng. Chủ cửa hàng có thể dựa vào con số này để chuẩn bị lượng hàng dự phòng an toàn (Safety Stock = 1-2 sản phẩm) mà không sợ bị cháy hàng hay ứ đọng vốn.
+- **Câu hỏi 3: Giá trị MAE và MAPE có ý nghĩa gì đối với chủ doanh nghiệp?**
+  *Trả lời:* MAE = 2.39 đơn/ngày nghĩa là dự báo của hệ thống trung bình chỉ lệch khoảng 2 đến 3 đơn hàng. MAPE = 22.82% cho biết tỷ lệ sai số tương đối khoảng 22.8% so với dung lượng thực tế. Chủ doanh nghiệp có thể chủ động nhập hàng tồn kho dự phòng (Safety Stock = 2-3 đơn/ngày) mà không lo tồn kho ứ đọng hoặc thiếu hụt hàng bán.
+- **Câu hỏi 4: Tại sao cần kết hợp cả 3 chỉ số MAE, RMSE và MAPE khi đánh giá hồi quy?**
+  *Trả lời:*
+  - *MAE* cung cấp sai số trực tiếp theo cùng đơn vị đo của biến mục tiêu (đơn hàng/ngày).
+  - *RMSE* phạt nặng sai số lớn, cảnh báo những ngày bán hàng đặc biệt (Flash sale, Tết) bị dự báo sai lệch nghiêm trọng.
+  - *MAPE* đo sai số theo tỷ lệ phần trăm (%), giúp so sánh trực quan hiệu quả dự báo độc lập với quy mô của từng mặt hàng hay chi nhánh. Khi tính toán cần kẹp cận $\max(|y|, \epsilon)$ để triệt tiêu lỗi chia cho 0.
 

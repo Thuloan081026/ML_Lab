@@ -286,8 +286,24 @@ $$
 RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}
 $$
 
-MAE dễ diễn giải theo đơn vị của nhãn. RMSE phạt mạnh hơn các sai số lớn.
-Hai hàm được cài đặt tại
+Phần trăm sai số tuyệt đối trung bình:
+
+$$
+MAPE = \frac{100\%}{n}\sum_{i=1}^{n}\left|\frac{y_i-\hat{y}_i}{\max(|y_i|, \epsilon)}\right|
+$$
+
+Hệ số xác định:
+
+$$
+R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}
+$$
+
+- **MAE:** Dễ diễn giải theo cùng đơn vị đo của nhãn (số đơn hàng/ngày).
+- **RMSE:** Phạt mạnh hơn các sai số lớn do phép bình phương, nhạy với đột biến.
+- **MAPE:** Đo lường mức sai số tương đối theo tỷ lệ %, độc lập với quy mô biến, trực quan khi báo cáo kinh doanh.
+- **R² Score:** Đo lường tỷ lệ phương sai mà mô hình giải thích được so với trung bình mẫu.
+
+Tất cả các hàm đánh giá được cài đặt 100% From-Scratch thuần NumPy tại
 [`metrics.py`](../models/algorithms/metrics.py).
 
 ## 7. KẾT QUẢ THỰC NGHIỆM
@@ -310,22 +326,24 @@ từng ngày.
 
 #### Kết quả trên tập validation
 
-| Mô hình | MAE | RMSE |
-|---|---:|---:|
-| Linear Regression | 2,64 | 3,33 |
-| Decision Tree | 3,16 | 3,93 |
+| Mô hình | MAE | RMSE | MAPE (%) | $R^2$ Score |
+|---|---:|---:|---:|---:|
+| Linear Regression (Normal Eq) | 2,645 | 3,331 | 24,26% | -0,0572 |
+| Linear Regression (Gradient Descent) | 2,768 | 3,454 | 25,17% | -0,1364 |
+| Decision Tree (Depth=4) | 3,161 | 3,933 | 28,76% | -0,4740 |
 
 #### Kết quả trên tập test
 
-| Xếp hạng | Mô hình | MAE | RMSE |
-|---:|---|---:|---:|
-| 1 | Linear Regression | **2,39** | **3,03** |
-| 2 | Decision Tree | 2,88 | 3,56 |
+| Xếp hạng | Mô hình | MAE | RMSE | MAPE (%) | $R^2$ Score |
+|---:|---|---:|---:|---:|---:|
+| 1 | Linear Regression (Normal Eq) | **2,385** | **3,033** | **22,82%** | **-0,0274** |
+| 2 | Linear Regression (Gradient Descent) | 2,552 | 3,450 | 24,21% | -0,3289 |
+| 3 | Decision Tree Regressor | 2,885 | 3,559 | 28,43% | -0,4144 |
 
 Linear Regression đạt sai số thấp hơn Decision Tree trên cả validation và
-test. Tuy nhiên, Decision Tree được chọn làm model triển khai minh họa trong
-API vì có khả năng mô hình hóa quan hệ phi tuyến và đã được đóng gói sẵn cùng
-scaler.
+test (MAE 2,385 so với 2,885, MAPE 22,82% so với 28,43%). Tuy nhiên, cả hai
+mô hình đều được tích hợp trong Flask API để cho phép người dùng so sánh dự báo
+song song giữa tuyến tính và phi tuyến.
 
 ### 7.3. Online Learning
 
@@ -364,10 +382,10 @@ nhưng mức cải thiện còn hạn chế do tập dữ liệu nhỏ và các 
 
 ### 8.2. Ý nghĩa sai số
 
-Trong bài toán `Daily_Volume`, MAE test bằng 2,39 của Linear Regression có
-nghĩa là dự báo trung bình lệch khoảng 2 đến 3 giao dịch mỗi ngày trên tập
-test. RMSE bằng 3,03 cho thấy vẫn tồn tại một số ngày có sai số lớn hơn mức
-trung bình.
+Trong bài toán `Daily_Volume`:
+- **MAE test = 2,39 (Linear Regression):** Dự báo trung bình lệch khoảng 2 đến 3 đơn hàng mỗi ngày so với thực tế.
+- **MAPE test = 22,82%:** Sai số tương đối trung bình khoảng 22,8%, một mức chấp nhận được đối với mô hình chuỗi thời gian đơn giản chỉ dùng đặc trưng lịch.
+- **RMSE = 3,03:** Phản ánh rằng vẫn tồn tại một số ngày (như cuối tuần hoặc ngày khuyến mãi đột biến) có sai số lớn hơn mức trung bình do dữ liệu biến động mạnh.
 
 ### 8.3. Hạn chế
 
@@ -508,7 +526,7 @@ Các kết quả chính:
 3. Linear Regression dự đoán `Final_Price(Rs.)` đạt MAE 15,2589 Rs. và RMSE
    22,6519 Rs. trên tập test.
 4. Trong bài toán dự báo số giao dịch theo ngày, Linear Regression đạt MAE
-   2,39 và RMSE 3,03 trên tập test.
+   2,385, RMSE 3,033 và MAPE 22,82% trên tập test.
 5. Online Learning cải thiện từ MAE 2,46 xuống 2,44 và từ RMSE 3,32 xuống
    3,22 trong mô phỏng.
 6. Flask API nạp được model, scaler và trả về dự báo mẫu 12,43 giao dịch.

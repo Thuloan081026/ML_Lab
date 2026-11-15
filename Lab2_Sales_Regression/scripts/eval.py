@@ -26,7 +26,12 @@ sys.modules.setdefault("models.preprocessing", _prep_module)
 from models.algorithms.decision_tree import DecisionTreeRegressor
 from models.algorithms.linear_regression import LinearRegression
 from models.algorithms.preprocessing import StandardScaler
-from models.algorithms.metrics import mean_absolute_error, root_mean_squared_error, r2_score
+from models.algorithms.metrics import (
+    mean_absolute_error,
+    root_mean_squared_error,
+    r2_score,
+    mean_absolute_percentage_error,
+)
 
 def main() -> None:
     test_csv = ROOT / "data" / "processed" / "test_daily.csv"
@@ -70,6 +75,7 @@ def main() -> None:
         y_pred = model.predict(X_test_scaled)
         mae = mean_absolute_error(y_test, y_pred)
         rmse = root_mean_squared_error(y_test, y_pred)
+        mape = mean_absolute_percentage_error(y_test, y_pred)
         r2 = r2_score(y_test, y_pred)
 
         results.append({
@@ -77,6 +83,7 @@ def main() -> None:
             "Số mẫu Test": len(y_test),
             "MAE (Đơn hàng/ngày)": f"{mae:.3f}",
             "RMSE": f"{rmse:.3f}",
+            "MAPE (%)": f"{mape:.2f}%",
             "R2 Score": f"{r2:.4f}",
         })
 
