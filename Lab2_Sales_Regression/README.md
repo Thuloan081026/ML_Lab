@@ -208,7 +208,15 @@ Các thành phần cốt lõi được triển khai 100% bằng NumPy và Pandas
 | Decision Tree | `DecisionTreeRegressor` | Thuật toán rẽ nhánh đệ quy dựa trên tiêu chí **Giảm phương sai (Variance Reduction)**. |
 | Online Learning | `LinearRegressionGD` | Thuật toán Hạ dốc đạo hàm có tính năng `partial_fit` để học liên tục. |
 | Chống Overreacting | `alpha`, `clip_value` | Áp dụng L2 Regularization và Gradient Clipping để giới hạn Trọng số, chống nhiễu dữ liệu. |
-| Metrics | `mean_absolute_error`, `root_mean_squared_error` | Các hàm đánh giá sai số. |
+| Metrics | `mean_absolute_error`, `root_mean_squared_error`, `mean_absolute_percentage_error` (MAPE), `r2_score` | Các hàm đánh giá sai số toàn diện từ độ lệch tuyệt đối đến tỷ lệ phần trăm (MAPE có kẹp epsilon chống chia 0). |
+
+### Kết quả Đánh giá Benchmark trên Tập Kiểm Thử (Test Set):
+
+| Mô hình | Phương pháp | MAE (đơn) | RMSE | **MAPE (%)** | $R^2$ Score |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Linear Regression 🏆** | Normal Equation (OLS) | **2.385** | **3.033** | **22.82%** | **-0.0274** |
+| **Linear Regression (GD)** | Gradient Descent + L2 Clip | 2.552 | 3.450 | **24.21%** | -0.3289 |
+| **Decision Tree Regressor** | Variance Reduction Split (Depth=4) | 2.885 | 3.559 | **28.43%** | -0.4144 |
 
 ---
 
@@ -264,7 +272,7 @@ python app.py
 
 2. Máy chủ Flask sẽ khởi chạy tại `http://127.0.0.1:5000/`. Các Endpoints hỗ trợ bao gồm:
 
-- **`GET /`**: Trang chủ, hiển thị thông tin chung.
+- **`GET /`**: Trang chủ với giao diện Web Demo đồ họa trực quan (hỗ trợ chọn ngày dự báo, thử nhanh các kịch bản mẫu và xem bảng đối chuẩn MAE/RMSE/MAPE trực tiếp trên trình duyệt).
 
 - **`GET /health`**: Kiểm tra trạng thái server (Health Check).
 

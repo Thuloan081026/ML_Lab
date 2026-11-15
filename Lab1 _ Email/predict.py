@@ -1,7 +1,3 @@
-"""
-Dự đoán email và giải thích bằng Top 5 Trigger Words (From Scratch, <200 dòng).
-"""
-
 import os
 import sys
 import json
@@ -85,16 +81,33 @@ def run_benchmark_demo(classifier: StatelessSpamClassifier):
         ("Internal Meeting", "Subject: Team meeting tomorrow at 10 AM. Please review the attached quarterly revenue report."),
         ("Work Task", "Subject: Hi John, please send updated python code for machine learning lab assignment before friday.")
     ]
-    print("=" * 70)
+    eval_csv = PROJECT_ROOT / "data" / "processed" / "evaluation_results.csv"
+    if eval_csv.exists():
+        import pandas as pd
+        df_bench = pd.read_csv(eval_csv)
+        print("=" * 70)
+        print("BẢNG SO SÁNH ĐỐI CHUẨN CÁC THUẬT TOÁN (TEST SET)")
+        print("=" * 70)
+        print(df_bench[["Model", "Accuracy", "Precision", "Recall", "F1-Score", "ROC-AUC"]].to_string(index=False))
+        print("=" * 70)
+
+    print("\n" + "=" * 70)
     print("KIỂM CHỨNG THỰC NGHIỆM TRÊN CÁC KỊCH BẢN THỬ NGHIỆM")
     print("=" * 70)
+    md_lines = ["# KẾT QUẢ THỰC NGHIỆM DEMO — LAB 1 (SPAM EMAIL)\n\n"]
     for name, text in scenarios:
         res = classifier.predict(text)
         print(f"\n[{name}]")
         print(f"Trích đoạn : {text[:65]}...")
         print(f"Phán đoán  : {res['label']} (Spam: {res['spam_probability']*100:.2f}%)")
         print(f"Triggers   : {', '.join(res['top_trigger_words'])}")
+        md_lines.append(f"### {name}\n- **Đoạn trích:** `{text[:80]}...`\n- **Phán đoán:** {res['label']} (Spam: {res['spam_probability']*100:.2f}%)\n- **Từ khóa:** `{', '.join(res['top_trigger_words'])}`\n\n")
     print("\n" + "=" * 70)
+    rep_dir = PROJECT_ROOT / "reports"
+    rep_dir.mkdir(parents=True, exist_ok=True)
+    with open(rep_dir / "demo_results.md", "w", encoding="utf-8") as f:
+        f.writelines(md_lines)
+    print("[+] Đã xuất kết quả demo tại: reports/demo_results.md")
 
 def main():
     parser = argparse.ArgumentParser(description="Dự đoán Email Spam/Ham")

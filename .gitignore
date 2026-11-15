@@ -21,4 +21,9 @@ Thumbs.db
 # Archives
 *.zip
 
+# Standalone Lab Repositories
+Lab3_KMeans_Clustering/
+Lab4_Boston_Housing/
+
+
 

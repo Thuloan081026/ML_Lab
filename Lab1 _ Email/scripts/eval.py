@@ -23,11 +23,16 @@ def main():
         run_train()
 
     print("=" * 75)
-    print("ĐÁNH GIÁ MÔ HÌNH TRÊN TẬP KIỂM THỬ ĐỘC LẬP (TEST SET)")
+    print("BẢNG SO SÁNH ĐỐI CHUẨN CÁC THUẬT TOÁN TRÊN TẬP TEST ĐỘC LẬP")
     print("=" * 75)
+    eval_csv = PROJECT_ROOT / "data" / "processed" / "evaluation_results.csv"
+    if eval_csv.exists():
+        df_bench = pd.read_csv(eval_csv)
+        print(df_bench[["Model", "Accuracy", "Precision", "Recall", "F1-Score", "ROC-AUC"]].to_string(index=False))
+        print("-" * 75)
 
     df_test = pd.read_csv(test_csv)
-    print(f"[*] Đã nạp tập Test: {len(df_test):,} mẫu từ {test_csv.name}")
+    print(f"[*] Đánh giá chi tiết mô hình Champion (Multinomial NB) trên {len(df_test):,} mẫu Test:")
 
     classifier = StatelessSpamClassifier(str(model_json))
     threshold = classifier.threshold

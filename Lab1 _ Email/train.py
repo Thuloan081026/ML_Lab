@@ -1,8 +1,3 @@
-"""
-Pipeline huấn luyện và đánh giá hệ thống phân loại Email Spam (100% From Scratch).
-Tuân thủ giới hạn < 200 dòng theo quy chuẩn môn học.
-"""
-
 import os
 import sys
 from pathlib import Path
@@ -103,6 +98,15 @@ def main():
     df_test_res = pd.DataFrame(test_res)
     print(df_test_res.to_string(index=False))
     df_test_res.to_csv(PROJECT_ROOT / 'data' / 'processed' / 'evaluation_results.csv', index=False)
+
+    rep_dir = PROJECT_ROOT / 'reports'
+    rep_dir.mkdir(parents=True, exist_ok=True)
+    with open(rep_dir / 'evaluation_results.md', 'w', encoding='utf-8') as f:
+        f.write("# BÁO CÁO ĐÁNH GIÁ MÔ HÌNH — LAB 1 (SPAM EMAIL)\n\n")
+        f.write("| Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |\n|---|---|---|---|---|---|\n")
+        for r in test_res:
+            f.write(f"| **{r['Model']}** | {r['Accuracy']:.4f} | {r['Precision']:.4f} | {r['Recall']:.4f} | {r['F1-Score']:.4f} | {r['ROC-AUC']:.4f} |\n")
+    print("[+] Đã lưu báo cáo Markdown tại: reports/evaluation_results.md")
 
     # 5. Xuất mô hình JSON Artifact
     json_artifact = {
