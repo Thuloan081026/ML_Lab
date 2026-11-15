@@ -108,6 +108,15 @@ def main():
     print(res_df.to_string(index=False))
     res_df.to_csv(processed_dir / "evaluation_results.csv", index=False)
 
+    rep_dir = PROJECT_ROOT / "reports"
+    rep_dir.mkdir(parents=True, exist_ok=True)
+    with open(rep_dir / "evaluation_results.md", "w", encoding="utf-8") as f:
+        f.write("# BÁO CÁO ĐÁNH GIÁ MÔ HÌNH — LAB 2 (SALES FORECASTING)\n\n")
+        f.write("| Mô hình | Test MAE (đơn/ngày) | Test RMSE | Test R2 Score |\n|---|---|---|---|\n")
+        for r in results:
+            f.write(f"| **{r['Model']}** | {r['Test_MAE']:.4f} | {r['Test_RMSE']:.4f} | {r['Test_R2']:.4f} |\n")
+    print(f"[+] Đã lưu báo cáo Markdown tại: {rep_dir / 'evaluation_results.md'}")
+
     # 4. Lưu trữ mô hình triển khai
     save_dir = PROJECT_ROOT / "models" / "save_model"
     save_dir.mkdir(parents=True, exist_ok=True)

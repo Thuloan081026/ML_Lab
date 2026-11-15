@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2: Dự Báo Doanh Số Bán Hàng E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 30px 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .main-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            background: #ffffff;
+        }
+        .header-box {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+        }
+        .preset-btn {
+            font-size: 0.85rem;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        .result-card {
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .result-dt {
+            background: #e8f4fd;
+            border: 2px solid #2980b9;
+        }
+        .result-lr {
+            background: #eafaf1;
+            border: 2px solid #27ae60;
+        }
+        .metric-val {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .badge-tag {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="max-width: 960px;">
+    <div class="card main-card">
+        <div class="header-box">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="mb-1"><i class="fa-solid fa-chart-line me-2"></i>Lab 2: Dự Báo Doanh Số E-Commerce</h3>
+                    <p class="mb-0 opacity-75">Hệ thống hồi quy chuỗi thời gian From-Scratch (Decision Tree & Linear Regression)</p>
+                </div>
+                <span class="badge bg-light text-dark px-3 py-2"><i class="fa-solid fa-circle text-success me-1"></i>API Active</span>
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+            <!-- Preset Selection -->
+            <div class="mb-4">
+                <label class="form-label fw-bold text-muted text-uppercase" style="font-size: 0.8rem;">
+                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Kịch bản mẫu thử nhanh:
+                </label>
+                <div>
+                    <button class="btn btn-outline-primary preset-btn" onclick="selectPreset('2024-12-24')">
+                        📅 Ngày thường (Thứ Ba, 24/12/2024)
+                    </button>
+                    <button class="btn btn-outline-success preset-btn" onclick="selectPreset('2024-12-29')">
+                        🎉 Cuối tuần (Chủ Nhật, 29/12/2024)
+                    </button>
+                    <button class="btn btn-outline-warning text-dark preset-btn" onclick="selectPreset('2025-01-01')">
+                        ✨ Tết Dương Lịch (01/01/2025)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <form id="forecastForm">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Chọn ngày dự báo:</label>
+                        <input type="date" class="form-control" id="datePicker" value="2024-12-24" onchange="syncDateFields()">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Thuật toán:</label>
+                        <select class="form-select" id="modelSelect">
+                            <option value="both" selected>⚡ So sánh tất cả mô hình</option>
+                            <option value="decision_tree">Decision Tree Regressor (Cây hồi quy)</option>
+                            <option value="linear_regression">Linear Regression (Hồi quy tuyến tính OLS)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                            <i class="fa-solid fa-bolt me-1"></i>Dự Báo Doanh Số
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feature Details collapse -->
+                <div class="p-3 bg-light rounded-3 mb-4">
+                    <div class="row text-center text-muted" style="font-size: 0.85rem;">
+                        <div class="col-sm-2 col-4 mb-2 mb-sm-0">
+                            <strong>Năm:</strong> <span id="dispYear" class="text-dark fw-bold">2024</span>
+                        </div>
+                        <div class="col-sm-2 col-4 mb-2 mb-sm-0">
+                            <strong>Tháng:</strong> <span id="dispMonth" class="text-dark fw-bold">12</span>
+                        </div>
+                        <div class="col-sm-2 col-4 mb-2 mb-sm-0">
+                            <strong>Ngày:</strong> <span id="dispDay" class="text-dark fw-bold">24</span>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <strong>Thứ trong tuần:</strong> <span id="dispDayOfWeek" class="text-dark fw-bold">Thứ 3</span>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <strong>Cuối tuần:</strong> <span id="dispWeekend" class="badge bg-secondary">Không (0)</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Results Section -->
+            <div id="resultSection" style="display: none;" class="mb-4">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-square-poll-vertical me-2"></i>Kết Quả Dự Báo Số Lượng Đơn Hàng (Daily Volume)</h5>
+                <div class="row g-3" id="cardsContainer"></div>
+            </div>
+
+            <!-- Benchmark Reference Table -->
+            <div class="mt-4 pt-3 border-top">
+                <h6 class="fw-bold text-muted text-uppercase mb-3" style="font-size: 0.82rem;">
+                    <i class="fa-solid fa-table-list me-1"></i>Bảng đánh giá mô hình trên tập Test độc lập (Test Set):
+                </h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm text-center align-middle" style="font-size: 0.88rem;">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Mô hình</th>
+                                <th>Phương pháp</th>
+                                <th>Số mẫu Test</th>
+                                <th>MAE (Đơn/ngày)</th>
+                                <th>RMSE</th>
+                                <th>R² Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-semibold text-success">Linear Regression</td>
+                                <td>Normal Equation (OLS)</td>
+                                <td>48 ngày</td>
+                                <td><span class="badge bg-success">2.385</span></td>
+                                <td>3.033</td>
+                                <td>-0.0274</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-primary">Decision Tree Regressor</td>
+                                <td>Variance Reduction Split</td>
+                                <td>48 ngày</td>
+                                <td><span class="badge bg-primary">2.885</span></td>
+                                <td>3.559</td>
+                                <td>-0.4144</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="small text-muted mt-2">
+                    <i class="fa-solid fa-circle-info me-1"></i><strong>Ghi chú:</strong> Toàn bộ mô hình, bộ chuẩn hóa StandardScaler và chỉ số đánh giá được triển khai 100% From-Scratch thuần Python/NumPy, phân chia theo dòng thời gian (Temporal Split) để tránh rò rỉ dữ liệu chuỗi thời gian.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function syncDateFields() {
+    const val = document.getElementById('datePicker').value;
+    if (!val) return;
+    const parts = val.split('-');
+    const year = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[2]);
+    const dt = new Date(year, month - 1, day);
+    const dayOfWeek = (dt.getDay() + 6) % 7; // 0: Mon, 6: Sun
+    const isWeekend = (dayOfWeek === 5 || dayOfWeek === 6) ? 1 : 0;
+    
+    const dayNames = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ Nhật'];
+    document.getElementById('dispYear').innerText = year;
+    document.getElementById('dispMonth').innerText = month;
+    document.getElementById('dispDay').innerText = day;
+    document.getElementById('dispDayOfWeek').innerText = dayNames[dayOfWeek] + ` (Mã: ${dayOfWeek})`;
+    
+    const wkBadge = document.getElementById('dispWeekend');
+    if (isWeekend) {
+        wkBadge.className = 'badge bg-warning text-dark';
+        wkBadge.innerText = 'Cuối tuần (1)';
+    } else {
+        wkBadge.className = 'badge bg-secondary';
+        wkBadge.innerText = 'Ngày thường (0)';
+    }
+}
+
+function selectPreset(dateStr) {
+    document.getElementById('datePicker').value = dateStr;
+    syncDateFields();
+    document.getElementById('forecastForm').dispatchEvent(new Event('submit'));
+}
+
+document.getElementById('forecastForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const val = document.getElementById('datePicker').value;
+    if (!val) return;
+    const parts = val.split('-');
+    const year = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[2]);
+    const dt = new Date(year, month - 1, day);
+    const dayOfWeek = (dt.getDay() + 6) % 7;
+    const isWeekend = (dayOfWeek === 5 || dayOfWeek === 6) ? 1 : 0;
+    const selectedModel = document.getElementById('modelSelect').value;
+
+    const basePayload = {
+        Purchase_Year: year,
+        Purchase_Month: month,
+        Purchase_Day: day,
+        Purchase_DayOfWeek: dayOfWeek,
+        Purchase_IsWeekend: isWeekend
+    };
+
+    const container = document.getElementById('cardsContainer');
+    container.innerHTML = '<div class="col-12 text-center text-muted py-3"><div class="spinner-border spinner-border-sm me-2"></div>Đang tính toán dự báo...</div>';
+    document.getElementById('resultSection').style.display = 'block';
+
+    try {
+        let results = [];
+        if (selectedModel === 'both' || selectedModel === 'linear_regression') {
+            const res = await fetch('/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({...basePayload, model: 'linear_regression'})
+            });
+            const data = await res.json();
+            if (data.status === 'success') {
+                results.push({
+                    name: 'Linear Regression (OLS)',
+                    val: data.predicted_daily_volume,
+                    cls: 'result-lr',
+                    color: 'text-success',
+                    desc: 'Mô hình tuyến tính tối ưu theo phương trình chuẩn Normal Equation'
+                });
+            }
+        }
+
+        if (selectedModel === 'both' || selectedModel === 'decision_tree') {
+            const res = await fetch('/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({...basePayload, model: 'decision_tree'})
+            });
+            const data = await res.json();
+            if (data.status === 'success') {
+                results.push({
+                    name: 'Decision Tree Regressor',
+                    val: data.predicted_daily_volume,
+                    cls: 'result-dt',
+                    color: 'text-primary',
+                    desc: 'Cây quyết định hồi quy phân tách theo phương sai tối ưu'
+                });
+            }
+        }
+
+        container.innerHTML = '';
+        results.forEach(item => {
+            const col = document.createElement('div');
+            col.className = selectedModel === 'both' ? 'col-md-6' : 'col-12';
+            col.innerHTML = `
+                <div class="result-card ${item.cls}">
+                    <h6 class="fw-bold mb-1 ${item.color}">${item.name}</h6>
+                    <div class="metric-val ${item.color}">${item.val.toFixed(2)}</div>
+                    <div class="text-muted fw-semibold mb-2">đơn hàng / ngày</div>
+                    <small class="text-muted d-block">${item.desc}</small>
+                </div>
+            `;
+            container.appendChild(col);
+        });
+
+    } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Lỗi khi gọi API: ${err.message}</div>`;
+    }
+});
+
+syncDateFields();
+</script>
+</body>
+</html>
+

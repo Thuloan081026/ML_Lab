@@ -38,6 +38,7 @@ def main() -> None:
     print("DEMO DỰ BÁO DOANH SỐ BÁN HÀNG QUA FLASK API (LAB 2)")
     print("=" * 70)
 
+    md_lines = ["# KẾT QUẢ THỰC NGHIỆM DEMO — LAB 2 (SALES FORECASTING)\n\n"]
     for sc in scenarios:
         print(f"\n--- {sc['name']} ---")
         p = sc["payload"]
@@ -53,6 +54,13 @@ def main() -> None:
         print(f"Đầu vào: Ngày {p['Purchase_Day']:02d}/{p['Purchase_Month']:02d}/{p['Purchase_Year']} | Thứ {p['Purchase_DayOfWeek']+2} | Weekend={p['Purchase_IsWeekend']}")
         print(f"  -> Decision Tree Regressor : {res_dt['predicted_daily_volume']:.2f} đơn hàng/ngày")
         print(f"  -> Linear Regression (Ols) : {res_lr['predicted_daily_volume']:.2f} đơn hàng/ngày")
+        md_lines.append(f"### {sc['name']}\n- **Đầu vào:** Ngày {p['Purchase_Day']:02d}/{p['Purchase_Month']:02d}/{p['Purchase_Year']} (Thứ {p['Purchase_DayOfWeek']+2}, Cuối tuần: {p['Purchase_IsWeekend']})\n- **Decision Tree:** `{res_dt['predicted_daily_volume']:.2f} đơn/ngày`\n- **Linear Regression:** `{res_lr['predicted_daily_volume']:.2f} đơn/ngày`\n\n")
+
+    rep_dir = ROOT / "reports"
+    rep_dir.mkdir(parents=True, exist_ok=True)
+    with open(rep_dir / "demo_results.md", "w", encoding="utf-8") as f:
+        f.writelines(md_lines)
+    print(f"[+] Đã xuất kết quả demo tại: {rep_dir / 'demo_results.md'}")
 
     print("\n" + "=" * 70)
     print("[+] Hoàn tất demo thành công!")

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pandas as pd
 import numpy as np
 import sys
@@ -23,7 +23,7 @@ import models.algorithms.preprocessing as _preprocessing_module
 sys.modules.setdefault("models.decision_tree", _decision_tree_module)
 sys.modules.setdefault("models.preprocessing", _preprocessing_module)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.path.join(PROJECT_ROOT, "templates"))
 
 # Khởi tạo biến toàn cục cho các model và scaler
 dt_model = None
@@ -112,6 +112,9 @@ def health():
 
 @app.route('/', methods=['GET'])
 def index():
+    template_path = os.path.join(PROJECT_ROOT, "templates", "index.html")
+    if os.path.exists(template_path):
+        return render_template("index.html")
     return """
     <h1>API dự báo doanh số sản phẩm</h1>
     <p>Hệ thống dự báo số lượng đơn hàng (Daily Volume) đang hoạt động.</p>
